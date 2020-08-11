@@ -15,7 +15,7 @@
 	<description>SENG41283 Azure implementation employee main service</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 		<azure.version>2.3.1</azure.version>
 	</properties>
 
@@ -99,8 +99,8 @@
 				<version>1.9.1</version>
 				<configuration>
 					<schemaVersion>V2</schemaVersion>
-					<resourceGroup>SpringBootTestGroup</resourceGroup>
-					<appName>spring-test-app</appName>
+					<resourceGroup>${Your-resourse-group}</resourceGroup>
+					<appName>${name-for-your-app}</appName>
 					<region>westeurope</region>
 					<pricingTier>F1</pricingTier>
 					<runtime>
@@ -129,8 +129,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-
-
 	</build>
 
 </project>
