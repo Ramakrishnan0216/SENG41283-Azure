@@ -4,6 +4,7 @@ import { EmployeeService } from "./../employee.service";
 import { Employee } from "./../employee";
 import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
+import { MsalService, BroadcastService } from '@azure/msal-angular';
 
 @Component({
   selector: "app-employee-list",
@@ -14,7 +15,9 @@ export class EmployeeListComponent implements OnInit {
   employees: Observable<Employee[]>;
 
   constructor(private employeeService: EmployeeService,
-    private router: Router) {}
+    private router: Router,
+    private broadcastService: BroadcastService,
+     private authService: MsalService) {}
 
   ngOnInit() {
     this.reloadData();
@@ -23,6 +26,10 @@ export class EmployeeListComponent implements OnInit {
   reloadData() {
     this.employees = this.employeeService.getEmployeesList();
   
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   deleteEmployee(id: number) {
