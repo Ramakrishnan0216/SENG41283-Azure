@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
 import { LoginComponent } from './login/login.component';
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
+import { environment } from './../environments/environment';
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 @NgModule({
   declarations: [
@@ -27,10 +28,10 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     HttpClientModule,
     MsalModule.forRoot({
       auth: {
-        clientId: 'clientId', // This is your client ID
-        authority: 'https://login.microsoftonline.com/tentantID', // This is your tenant ID
-        redirectUri: 'http://localhost:4200/employees',// This is your redirect URI
-        postLogoutRedirectUri: "https://localhost:4200/",
+        clientId: environment.appClientID, // This is your client ID
+        authority: 'https://login.microsoftonline.com/'+environment.appTenantID, // This is your tenant ID
+        redirectUri: environment.loginRedirectUriAD,// This is your redirect URI
+        postLogoutRedirectUri: environment.logoutRedirectUriAD,
       },
       cache: {
         cacheLocation: 'localStorage',

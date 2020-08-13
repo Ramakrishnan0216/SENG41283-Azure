@@ -3,6 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  apiBaseUrl: 'http://localhost:8080/api/employees',
+  appClientID: 'clientId',
+  appTenantID:'TenantId',
+  loginRedirectUriAD:'http://localhost:4200/employees',
+  logoutRedirectUriAD:'http://localhost:4200/',
   production: false
 };
 
