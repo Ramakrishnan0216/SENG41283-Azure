@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.web.ramakrishnan.mainservice.exception.ResourceNotFoundException;
 import se.web.ramakrishnan.mainservice.model.Employee;
+import se.web.ramakrishnan.mainservice.model.ResponseDelete;
+import se.web.ramakrishnan.mainservice.model.ResponseEmployees;
 import se.web.ramakrishnan.mainservice.repository.EmployeeRepository;
 
 import javax.validation.Valid;
@@ -21,8 +23,9 @@ public class EmployeeController {
     EmployeeRepository employeeRepository;
 
     @GetMapping("/employees")
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    public ResponseEmployees getAllEmployees() {
+        List<Employee> employees = employeeRepository.findAll();
+        return new ResponseEmployees(employees);
     }
 
     @GetMapping("/employees/{id}")
@@ -50,13 +53,12 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employees/{id}")
-    public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long employeeId) throws ResourceNotFoundException {
+    public ResponseDelete deleteEmployee(@PathVariable(value = "id") Long employeeId) throws ResourceNotFoundException {
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee","id",employeeId));
 
         employeeRepository.delete(employee);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return response;
+
+        return new ResponseDelete(true);
     }
 }
