@@ -2,6 +2,8 @@ package se.web.ramakrishnan.employeeservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +27,23 @@ public class EmployeeController {
     Environment environment;
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    private StringRedisTemplate template;
 
     @GetMapping("/employees")
     public ResponseEntity<ResponseEmployees> getAllEmployees() {
+
+        ValueOperations<String, String> ops = this.template.opsForValue();
+
+        // Add a Hello World string to your cache.
+        String key = "greeting";
+        if (!this.template.hasKey(key)) {
+            ops.set(key, "Hello World!");
+        }
+
+        // Return the string from your cache.
+        return ops.get(key);
+    }
         String url = environment.getProperty("service.main.endpoint");
         return restTemplate.getForEntity(url, ResponseEmployees.class);
     }
