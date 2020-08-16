@@ -33,6 +33,13 @@ public class EmployeeController {
     @GetMapping("/employees")
     public ResponseEntity<ResponseEmployees> getAllEmployees() {
 
+        String url = environment.getProperty("service.main.endpoint");
+        return restTemplate.getForEntity(url, ResponseEmployees.class);
+    }
+
+    @GetMapping("/hello")
+    public String hello() {
+
         ValueOperations<String, String> ops = this.template.opsForValue();
 
         // Add a Hello World string to your cache.
@@ -43,9 +50,6 @@ public class EmployeeController {
 
         // Return the string from your cache.
         return ops.get(key);
-    }
-        String url = environment.getProperty("service.main.endpoint");
-        return restTemplate.getForEntity(url, ResponseEmployees.class);
     }
 
     @GetMapping("/employees/{id}")
