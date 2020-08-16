@@ -27,9 +27,9 @@ public class EmployeeController {
     RestTemplate restTemplate;
 
     @GetMapping("/employees")
-    public ResponseEmployees getAllEmployees() {
+    public ResponseEntity<ResponseEmployees> getAllEmployees() {
         String url = environment.getProperty("service.main.endpoint");
-        return restTemplate.getForObject(url, ResponseEmployees.class);
+        return restTemplate.getForEntity(url, ResponseEmployees.class);
     }
 
     @GetMapping("/employees/{id}")

@@ -4,6 +4,8 @@ import java.util.List;
 
 public class ResponseEmployees {
     private List<Employee> employees;
+    public ResponseEmployees() {
+    }
 
     public ResponseEmployees(List<Employee> employees) {
         this.employees = employees;
